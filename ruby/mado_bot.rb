@@ -45,21 +45,29 @@ class MadoBot
     str = twit.text
     post_text = ".@" + twit.from_user + " の危ない発言: " + twit.text.gsub('窓', '社会の窓')
     if post_text.split(//u).length < 140 and
-       /窓/        =~ str and
-       /[０-９]窓/ !~ str and
-       /[一-九]窓/ !~ str and
-       /[\d+]窓/   !~ str and
-       /窓ガラス/  !~ str and
-       /会社の窓/  !~ str and
-       /社会の窓/  !~ str and
-       /窓付き/    !~ str and
-       /同窓会/    !~ str and
-       /検索窓/    !~ str and
-       /車の窓/    !~ str and
-       /窓際/      !~ str and
-       /別窓/      !~ str and
-       /窓枠/      !~ str and
-       /小窓/      !~ str
+      twit.from_user != 'mado_bot' and
+      /窓/        =~ str and
+      /[０１２３４５６７８９]窓/ !~ str and
+      /窓[０１２３４５６７８９]/ !~ str and
+      /[一二三四五六七八九]窓/   !~ str and
+      /[\d+]窓/   !~ str and
+      /窓ガラス/  !~ str and
+      /バスの窓/  !~ str and
+      /会社の窓/  !~ str and
+      /世界の窓/  !~ str and
+      /社会の窓/  !~ str and
+      /窓付き/    !~ str and
+      /同窓会/    !~ str and
+      /検索窓/    !~ str and
+      /入力窓/    !~ str and
+      /車の窓/    !~ str and
+      /窓の杜/    !~ str and
+      /窓際/      !~ str and
+      /別窓/      !~ str and
+      /窓口/      !~ str and
+      /窓枠/      !~ str and
+      /窓7/       !~ str and
+      /小窓/      !~ str
       return post_text
     else
       return nil
