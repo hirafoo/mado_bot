@@ -53,6 +53,7 @@ class MadoBot
       /[\d+]窓/   !~ str and
       /窓ガラス/  !~ str and
       /バスの窓/  !~ str and
+      /部屋の窓/  !~ str and
       /会社の窓/  !~ str and
       /世界の窓/  !~ str and
       /社会の窓/  !~ str and
@@ -65,6 +66,7 @@ class MadoBot
       /窓際/      !~ str and
       /別窓/      !~ str and
       /窓口/      !~ str and
+      /窓辺/      !~ str and
       /窓枠/      !~ str and
       /窓7/       !~ str and
       /小窓/      !~ str
@@ -76,6 +78,7 @@ class MadoBot
 
   def stock_data
     self.search.containing('窓').fetch.results.each do |twit|
+      puts twit.text
       post_text = self.openable(twit)
       if post_text
         tweet = Tweet.first(:status_id => twit.id)
