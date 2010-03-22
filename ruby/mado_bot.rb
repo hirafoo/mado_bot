@@ -64,6 +64,7 @@ class MadoBot
       /車の窓/    !~ str and
       /窓の杜/    !~ str and
       /窓際/      !~ str and
+      /新窓/      !~ str and
       /別窓/      !~ str and
       /多窓/      !~ str and
       /窓口/      !~ str and
