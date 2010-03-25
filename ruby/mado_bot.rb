@@ -45,7 +45,7 @@ class MadoBot
     str = twit.text
     post_text = ".@" + twit.from_user + " の危ない発言: " + twit.text.gsub('窓', '社会の窓')
     if post_text.split(//u).length < 140 and
-      twit.from_user != 'mado_bot' and
+      twit.from_user !~ /bot/i and
       /窓/        =~ str and
       /[０１２３４５６７８９]窓/ !~ str and
       /窓[０１２３４５６７８９]/ !~ str and
@@ -64,6 +64,8 @@ class MadoBot
       /車の窓/    !~ str and
       /窓の杜/    !~ str and
       /窓際/      !~ str and
+      /天窓/      !~ str and
+      /高窓/      !~ str and
       /新窓/      !~ str and
       /別窓/      !~ str and
       /多窓/      !~ str and
@@ -80,7 +82,6 @@ class MadoBot
 
   def stock_data
     self.search.containing('窓').fetch.results.each do |twit|
-      puts twit.text
       post_text = self.openable(twit)
       if post_text
         tweet = Tweet.first(:status_id => twit.id)
