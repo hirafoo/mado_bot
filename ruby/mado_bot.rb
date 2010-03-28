@@ -103,9 +103,35 @@ class MadoBot
       tweet.update(:opened => 1)
     end
   end
+
+  def settle_relation
+    friends      = self.tw.friends
+    followers    = self.tw.followers
+    friend_ids   = {}
+    follower_ids = {}
+    mix_ids      = {}
+
+    friends.each do |f|
+      friend_ids[f.id] = 1
+      mix_ids[f.id] = 1
+    end
+    followers.each do |f|
+      follower_ids[f.id] = 1
+      mix_ids[f.id] = 1
+    end
+
+    mix_ids.each do |id, v|
+      if !friend_ids[id] and follower_ids[id]
+        self.tw.friendship_create(id)
+      elsif friend_ids[id] and !follower_ids[id]
+        self.tw.friendship_destroy(id)
+      end
+    end
+  end
 end
 
 mado = MadoBot.new
 mado.init
+mado.settle_relation
 mado.stock_data
 mado.open_window
