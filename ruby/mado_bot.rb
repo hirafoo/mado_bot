@@ -122,9 +122,15 @@ class MadoBot
 
     mix_ids.each do |id, v|
       if !friend_ids[id] and follower_ids[id]
-        self.tw.friendship_create(id)
+        begin
+          self.tw.friendship_create(id)
+        rescue
+        end
       elsif friend_ids[id] and !follower_ids[id]
-        self.tw.friendship_destroy(id)
+        begin
+          self.tw.friendship_destroy(id)
+        rescue
+        end
       end
     end
   end
