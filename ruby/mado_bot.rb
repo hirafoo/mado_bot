@@ -43,7 +43,7 @@ class MadoBot
 
   def openable(twit)
     str = twit.text
-    post_text = ".@" + twit.from_user + " の危ない発言: " + twit.text.gsub('窓', '社会の窓')
+    post_text = ".@" + twit.from_user + " の窓を変更: " + twit.text.gsub('窓', '社会の窓')
     if post_text.split(//u).length < 140 and
       twit.from_user !~ /bot/i and
       /窓/        =~ str and
