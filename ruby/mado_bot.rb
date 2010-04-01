@@ -108,7 +108,7 @@ class MadoBot
   def settle_relation
     friend_ids        = self.tw.friend_ids
     follower_ids      = self.tw.follower_ids
-    friend_ids_hash  = {}
+    friend_ids_hash   = {}
     follower_ids_hash = {}
     mix_ids      = {}
 
