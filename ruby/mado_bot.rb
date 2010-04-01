@@ -63,6 +63,7 @@ class MadoBot
       /入力窓/    !~ str and
       /車の窓/    !~ str and
       /窓の杜/    !~ str and
+      /窓の社/    !~ str and
       /窓際/      !~ str and
       /内窓/      !~ str and
       /天窓/      !~ str and
@@ -123,11 +124,13 @@ class MadoBot
     mix_ids.each do |id, v|
       if !friend_ids[id] and follower_ids[id]
         begin
+          puts "create #{id}"
           self.tw.friendship_create(id)
         rescue
         end
       elsif friend_ids[id] and !follower_ids[id]
         begin
+          puts "destroy #{id}"
           self.tw.friendship_destroy(id)
         rescue
         end
