@@ -106,29 +106,29 @@ class MadoBot
   end
 
   def settle_relation
-    friends      = self.tw.friends
-    followers    = self.tw.followers
-    friend_ids   = {}
-    follower_ids = {}
+    friend_ids        = self.tw.friend_ids
+    follower_ids      = self.tw.follower_ids
+    friend_ids_hash  = {}
+    follower_ids_hash = {}
     mix_ids      = {}
 
-    friends.each do |f|
-      friend_ids[f.id] = 1
-      mix_ids[f.id] = 1
+    friend_ids.each do |id|
+      friend_ids_hash[id] = 1
+      mix_ids[id] = 1
     end
-    followers.each do |f|
-      follower_ids[f.id] = 1
-      mix_ids[f.id] = 1
+    follower_ids.each do |id|
+      follower_ids_hash[id] = 1
+      mix_ids[id] = 1
     end
 
     mix_ids.each do |id, v|
-      if !friend_ids[id] and follower_ids[id]
+      if !friend_ids_hash[id] and follower_ids_hash[id]
         begin
           puts "create #{id}"
           self.tw.friendship_create(id)
         rescue
         end
-      elsif friend_ids[id] and !follower_ids[id]
+      elsif friend_ids_hash[id] and !follower_ids_hash[id]
         begin
           puts "destroy #{id}"
           self.tw.friendship_destroy(id)
