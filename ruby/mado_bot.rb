@@ -14,7 +14,7 @@ class Tweet
   property :status_id, String,  :required => true, :default => '', :length => 0..255
   property :name,      String,  :required => true, :default => '', :length => 0..255
   property :text,      String,  :required => true, :default => '', :length => 0..255
-  property :opened,    Serial,  :required => true, :default => 0
+  property :opened,    Integer, :required => true, :default => 0
   timestamps :at
 end
 
