@@ -14,7 +14,7 @@ class Tweet
   property :status_id, String,  :required => true, :default => '', :length => 0..255
   property :name,      String,  :required => true, :default => '', :length => 0..255
   property :text,      String,  :required => true, :default => '', :length => 0..255
-  property :opened,    Integer, :required => true, :default => 0
+  property :opened,    Boolean, :required => true, :default => 0
   timestamps :at
 end
 
@@ -53,6 +53,7 @@ class MadoBot
       /[\d+]窓/   !~ str and
       /窓ガラス/  !~ str and
       /バスの窓/  !~ str and
+      /中東の窓/  !~ str and
       /部屋の窓/  !~ str and
       /会社の窓/  !~ str and
       /世界の窓/  !~ str and
@@ -68,6 +69,7 @@ class MadoBot
       /内窓/      !~ str and
       /天窓/      !~ str and
       /高窓/      !~ str and
+      /車窓/      !~ str and
       /新窓/      !~ str and
       /別窓/      !~ str and
       /多窓/      !~ str and
