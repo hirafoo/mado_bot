@@ -60,6 +60,7 @@ class MadoBot
       /窓付き/    !~ str and
       /同窓会/    !~ str and
       /検索窓/    !~ str and
+      /二十窓/    !~ str and
       /入力窓/    !~ str and
       /車の窓/    !~ str and
       /窓の杜/    !~ str and
