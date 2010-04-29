@@ -43,12 +43,14 @@ class MadoBot
 
   def openable(twit)
     str = twit.text
-    post_text = ".@" + twit.from_user + " の窓を変更: " + twit.text.gsub('窓', '社会の窓')
+    post_text = "@" + twit.from_user + " の窓を変更: " + twit.text.gsub('窓', '社会の窓')
     if post_text.split(//u).length < 140 and
-      twit.from_user !~ /bot/i and
+      twit.from_user !~ /[Bb]ot/i and
+      twit.from_user != 'fx_fan_jp' and
       /[０１２３４５６７８９]窓/ !~ str and
       /窓[０１２３４５６７８９]/ !~ str and
       /[一二三四五六七八九]窓/   !~ str and
+      /窓[Bb]ot/  !~ str and
       /[\d+]窓/   !~ str and
       /窓ガラス/  !~ str and
       /バスの窓/  !~ str and
@@ -69,6 +71,7 @@ class MadoBot
       /窓さん/    !~ str and
       /窓際/      !~ str and
       /内窓/      !~ str and
+      /外窓/      !~ str and
       /天窓/      !~ str and
       /高窓/      !~ str and
       /車窓/      !~ str and
@@ -103,8 +106,8 @@ class MadoBot
     tweet = Tweet.last(:opened => 0)
     if tweet
       puts tweet.text
-      #self.tw.update(tweet.text, {:in_reply_to_status_id => tweet.status_id})
-      self.tw.update(tweet.text)
+      self.tw.update(tweet.text, {:in_reply_to_status_id => tweet.status_id})
+      #self.tw.update(tweet.text)
       tweet.update(:opened => 1)
     end
   end
