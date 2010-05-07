@@ -47,6 +47,7 @@ class MadoBot
     if post_text.split(//u).length < 140 and
       twit.from_user !~ /[Bb]ot/i and
       twit.from_user != 'fx_fan_jp' and
+      twit.from_user != 'abu_mustafa' and
       /[０１２３４５６７８９]窓/ !~ str and
       /窓[０１２３４５６７８９]/ !~ str and
       /[一二三四五六七八九]窓/   !~ str and
