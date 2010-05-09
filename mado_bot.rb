@@ -45,7 +45,7 @@ class MadoBot
     str = twit.text
     post_text = "@" + twit.from_user + " の窓を変更: " + twit.text.gsub('窓', '社会の窓')
     if post_text.split(//u).length < 140 and
-      twit.from_user !~ /[Bb]ot/i and
+      twit.from_user !~ /bot/i and
       twit.from_user != 'fx_fan_jp' and
       twit.from_user != 'abu_mustafa' and
       /[０１２３４５６７８９]窓/ !~ str and
@@ -70,6 +70,7 @@ class MadoBot
       /窓の杜/    !~ str and
       /窓の社/    !~ str and
       /窓さん/    !~ str and
+      /窓たん/    !~ str and
       /窓際/      !~ str and
       /内窓/      !~ str and
       /外窓/      !~ str and
