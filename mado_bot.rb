@@ -48,17 +48,17 @@ class MadoBot
       twit.from_user !~ /bot/i and
       twit.from_user != 'fx_fan_jp' and
       twit.from_user != 'abu_mustafa' and
-      /[０１２３４５６７８９]窓/ !~ str and
-      /窓[０１２３４５６７８９]/ !~ str and
-      /[一二三四五六七八九]窓/   !~ str and
+      /[一二三四五六七八九]窓/ !~ str and
+      /[０-９]窓/ !~ str and
+      /窓[０-９]/ !~ str and
       /窓[Bb]ot/  !~ str and
       /[\d+]窓/   !~ str and
       /窓ガラス/  !~ str and
       /バスの窓/  !~ str and
       /中東の窓/  !~ str and
       /部屋の窓/  !~ str and
-      /会社の窓/  !~ str and
       /世界の窓/  !~ str and
+      /会社の窓/  !~ str and
       /社会の窓/  !~ str and
       /窓付き/    !~ str and
       /同窓会/    !~ str and
