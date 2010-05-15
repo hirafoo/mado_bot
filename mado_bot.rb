@@ -49,6 +49,7 @@ class MadoBot
       twit.from_user != 'fx_fan_jp' and
       twit.from_user != 'abu_mustafa' and
       /[一二三四五六七八九]窓/ !~ str and
+      /ジョハリの窓/ !~ str and
       /[０-９]窓/ !~ str and
       /窓[０-９]/ !~ str and
       /窓[Bb]ot/  !~ str and
@@ -150,6 +151,8 @@ end
 
 mado = MadoBot.new
 mado.init
-mado.settle_relation
-mado.stock_data
 mado.open_window
+
+mode = ARGV.shift || ''
+mado.settle_relation if mode == "rel"
+mado.stock_data if mode == "stock"
