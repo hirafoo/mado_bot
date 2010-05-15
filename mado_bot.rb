@@ -151,8 +151,12 @@ end
 
 mado = MadoBot.new
 mado.init
-mado.open_window
 
 mode = ARGV.shift || ''
-mado.settle_relation if mode == "rel"
-mado.stock_data if mode == "stock"
+if mode == "rel"
+  mado.settle_relation
+elsif mode == "stock"
+  mado.stock_data
+else
+  mado.open_window
+end
