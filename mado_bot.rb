@@ -75,6 +75,7 @@ class MadoBot
       /窓際/      !~ str and
       /内窓/      !~ str and
       /外窓/      !~ str and
+      /円窓/      !~ str and
       /天窓/      !~ str and
       /高窓/      !~ str and
       /車窓/      !~ str and
