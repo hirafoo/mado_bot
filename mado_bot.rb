@@ -94,7 +94,7 @@ class MadoBot
   end
 
   def stock_data
-    self.search.lang('all').containing('窓').fetch.results.each do |twit|
+    self.search.lang('all').per_page(100).containing('窓').fetch.results.each do |twit|
       post_text = self.openable(twit)
       if post_text
         tweet = Tweet.first(:status_id => twit.id)
