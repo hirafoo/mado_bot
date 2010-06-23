@@ -18,6 +18,17 @@ class Tweet
   timestamps :at
 end
 
+class Mention
+  include DataMapper::Resource
+
+  property :id,        Serial
+  property :status_id, String,  :required => true, :default => '', :length => 0..255
+  property :name,      String,  :required => true, :default => '', :length => 0..255
+  property :text,      String,  :required => true, :default => '', :length => 0..255
+  property :retweeted, Boolean, :required => true, :default => 0
+  timestamps :at
+end
+
 class MadoBot
   attr_accessor :tw, :search
 
@@ -149,6 +160,16 @@ class MadoBot
       end
     end
   end
+
+  def get_mention
+    self.tw.mentions({:count => 200}).each do |mention|
+      tweet = Mention.get(mention.id)
+
+      if !tweet
+        Mention.create(:status_id => mention.id, :name => mention.user['screen_name'], :text => mention.text)
+      end
+    end
+  end
 end
 
 mado = MadoBot.new
@@ -159,6 +180,8 @@ if mode == "rel"
   mado.settle_relation
 elsif mode == "stock"
   mado.stock_data
+elsif mode == "men"
+  mado.get_mention
 else
   mado.open_window
 end
