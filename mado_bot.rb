@@ -162,8 +162,8 @@ class MadoBot
   end
 
   def get_mention
-    self.tw.mentions({:count => 200}).each do |mention|
-      tweet = Mention.get(mention.id)
+    self.tw.mentions({:count => 100}).each do |mention|
+      tweet = Mention.first(:status_id => mention.id)
 
       if !tweet
         Mention.create(:status_id => mention.id, :name => mention.user['screen_name'], :text => mention.text)
@@ -182,6 +182,8 @@ elsif mode == "stock"
   mado.stock_data
 elsif mode == "hear"
   mado.get_mention
+elsif mode == "resetdb"
+  DataMapper.auto_migrate!
 else
   mado.open_window
 end
