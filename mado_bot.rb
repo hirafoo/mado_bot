@@ -48,6 +48,7 @@ class MadoBot
       twit.from_user !~ /bot/i and
       twit.from_user != 'fx_fan_jp' and
       twit.from_user != 'abu_mustafa' and
+      twit.from_user != 'take_cheeze' and
       /[一二三四五六七八九]窓/ !~ str and
       /ジョハリの窓/ !~ str and
       /[０-９]窓/ !~ str and
