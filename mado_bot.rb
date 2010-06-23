@@ -180,7 +180,7 @@ if mode == "rel"
   mado.settle_relation
 elsif mode == "stock"
   mado.stock_data
-elsif mode == "men"
+elsif mode == "hear"
   mado.get_mention
 else
   mado.open_window
