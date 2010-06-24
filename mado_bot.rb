@@ -161,7 +161,7 @@ class MadoBot
     end
   end
 
-  def get_mention
+  def stock_mention
     self.tw.mentions({:count => 100}).each do |mention|
       tweet = Mention.first(:status_id => mention.id)
 
@@ -169,6 +169,12 @@ class MadoBot
         Mention.create(:status_id => mention.id, :name => mention.user['screen_name'], :text => mention.text)
       end
     end
+  end
+
+  def rt_mention
+    mention = Mention.last(:retweeted => 0)
+    self.tw.retweet(mention.status_id)
+    mention.update(:retweeted => 1)
   end
 end
 
@@ -181,7 +187,9 @@ if mode == "rel"
 elsif mode == "stock"
   mado.stock_data
 elsif mode == "hear"
-  mado.get_mention
+  mado.stock_mention
+elsif mode == "rt"
+  mado.rt_mention
 elsif mode == "resetdb"
   DataMapper.auto_migrate!
 else
