@@ -173,7 +173,11 @@ class MadoBot
 
   def rt_mention
     mention = Mention.last(:retweeted => 0)
-    self.tw.retweet(mention.status_id)
+    begin
+      puts mention.text
+      self.tw.retweet(mention.status_id)
+    rescue
+    end
     mention.update(:retweeted => 1)
   end
 end
