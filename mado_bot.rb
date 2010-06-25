@@ -172,7 +172,7 @@ class MadoBot
   end
 
   def rt_mention
-    mention = Mention.last(:order => [:status_id.desc], :retweeted => 0)
+    mention = Mention.first(:order => [:status_id.desc], :retweeted => 0)
     begin
       puts mention.text
       self.tw.retweet(mention.status_id)
