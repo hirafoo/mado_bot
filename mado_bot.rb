@@ -164,12 +164,12 @@ class MadoBot
   end
 
   def stock_mention
-    self.tw.mentions({:count => 100}).each do |mention|
+    self.tw.mentions({:count => 100, :page => 1}).each do |mention|
       tweet = Mention.first(:status_id => mention.id)
 
       if !tweet
         puts mention.text
-        Mention.create(:status_id => mention.id, :name => mention.user['screen_name'], :text => CGI.unescapeHTML(mention.text))
+        Mention.create(:status_id => mention.id, :name => mention.user['screen_name'], :text => CGI.unescapeHTML(mention.text.gsub("\n", "")))
       end
     end
   end
