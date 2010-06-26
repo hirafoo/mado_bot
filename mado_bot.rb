@@ -1,5 +1,6 @@
 #!/usr/bin/ruby -Ku
 require 'rubygems'
+require "cgi"
 require "dm-core"
 require "dm-timestamps"
 require 'oauth'
@@ -55,6 +56,7 @@ class MadoBot
   def openable(twit)
     str = twit.text
     post_text = "@" + twit.from_user + " の窓を変更: " + twit.text.gsub('窓', '社会の窓')
+    post_text = CGI.unescapeHTML(post_text)
     if post_text.split(//u).length < 140 and
       twit.from_user !~ /bot/i and
       twit.from_user != 'fx_fan_jp' and
@@ -166,7 +168,8 @@ class MadoBot
       tweet = Mention.first(:status_id => mention.id)
 
       if !tweet
-        Mention.create(:status_id => mention.id, :name => mention.user['screen_name'], :text => mention.text)
+        puts mention.text
+        Mention.create(:status_id => mention.id, :name => mention.user['screen_name'], :text => CGI.unescapeHTML(mention.text))
       end
     end
   end
