@@ -55,7 +55,9 @@ class MadoBot
 
   def openable(twit)
     str = twit.text
-    post_text = "@" + twit.from_user + " の窓を変更: " + twit.text.gsub('窓', '社会の窓')
+    str =~ /窓/ or return nil
+    user = twit.from_user || twit.user.screen_name
+    post_text = "@" + user + " の窓を変更: " + twit.text.gsub('窓', '社会の窓')
     post_text = CGI.unescapeHTML(post_text)
     if post_text.split(//u).length < 140 and
       twit.from_user !~ /bot/i and
@@ -121,6 +123,7 @@ class MadoBot
   end
 
   def open_window
+    #tweet = Tweet.get(id)
     tweet = Tweet.last(:opened => 0)
     if tweet
       puts tweet.text
@@ -187,6 +190,19 @@ class MadoBot
       mention.update(:retweeted => 1)
     end
   end
+
+  def stock_tweet(id)
+    tweet = self.tw.status(id) or return
+    post_text = self.openable(tweet)
+    if post_text
+        exist = Tweet.first(:status_id => tweet.id)
+
+        if !exist
+          user = tweet.user.screen_name
+          Tweet.create(:status_id => tweet.id, :name => user, :text => post_text)
+        end
+    end
+  end
 end
 
 mado = MadoBot.new
@@ -201,6 +217,8 @@ elsif mode == "hear"
   mado.stock_mention
 elsif mode == "rt"
   mado.rt_mention
+elsif mode =~ /^\d+$/
+  mado.stock_tweet(mode)
 elsif mode == "resetdb"
   DataMapper.auto_migrate!
 else
