@@ -169,7 +169,7 @@ class MadoBot
   def stock_mention
     self.tw.mentions({:count => 20, :page => 1}).each do |mention|
       pp mention.status_id
-      return if mention.screen_name =~ /bot$/i
+      return if mention.user['screen_name'] =~ /bot$/i
       tweet = Mention.first(:status_id => mention.id)
 
       if !tweet
