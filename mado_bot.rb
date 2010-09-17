@@ -71,6 +71,7 @@ class MadoBot
       /窓[Bb]ot/  !~ str and
       /[\d+]窓/   !~ str and
       /窓ガラス/  !~ str and
+      /ガラス窓/  !~ str and
       /バスの窓/  !~ str and
       /中東の窓/  !~ str and
       /部屋の窓/  !~ str and
