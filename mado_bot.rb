@@ -99,6 +99,7 @@ class MadoBot
       /新窓/      !~ str and
       /別窓/      !~ str and
       /多窓/      !~ str and
+      /出窓/      !~ str and
       /窓口/      !~ str and
       /窓辺/      !~ str and
       /窓枠/      !~ str and
