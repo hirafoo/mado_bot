@@ -38,10 +38,15 @@ class MadoBot
     db_conf   = Pit.get('mado_bot_dsn')
     user_conf = Pit.get('mado_bot_user')
 
-    oauth = Twitter::OAuth.new(app_conf["consumer_key"], app_conf["consumer_secret"])
-    oauth.authorize_from_access(user_conf["access_token"], user_conf["access_token_secret"])
+    Twitter.configure do |config|
+      config.consumer_key       = app_conf["consumer_key"]
+      config.consumer_secret    = app_conf["consumer_secret"]
+      config.oauth_token        = user_conf["access_token"]
+      config.oauth_token_secret = user_conf["access_token_secret"]
+    end
 
-    self.tw = Twitter::Base.new(oauth)
+    client = Twitter::Client.new
+    self.tw = client
     self.search = Twitter::Search.new
 
     DataMapper.setup(:default, {
@@ -65,6 +70,9 @@ class MadoBot
       twit.from_user != 'abu_mustafa' and
       twit.from_user != 'take_cheeze' and
       twit.from_user != 'ko10buki' and
+      twit.from_user != 'Hakui_no_Tak' and
+      twit.from_user != '000ajiaji000' and
+      twit.from_user != 'Moroboshi_Lum' and
       /[一二三四五六七八九]窓/ !~ str and
       /ジョハリの窓/ !~ str and
       /[０-９]窓/ !~ str and
@@ -113,13 +121,14 @@ class MadoBot
   end
 
   def stock_data
-    self.search.lang('all').per_page(100).containing('窓').fetch.results.each do |twit|
+    self.search.lang('all').per_page(50).containing('窓').fetch.each do |twit|
       post_text = self.openable(twit)
       if post_text
         tweet = Tweet.first(:status_id => twit.id)
 
         if !tweet
           Tweet.create(:status_id => twit.id, :name => twit.from_user, :text => post_text)
+          puts post_text
         end
       end
     end
@@ -170,8 +179,7 @@ class MadoBot
   end
 
   def stock_mention
-    self.tw.mentions({:count => 20, :page => 1}).each do |mention|
-      pp mention.status_id
+    self.tw.mentions({:count => 100, :page => 1}).each do |mention|
       return if mention.user['screen_name'] =~ /bot$/i
       tweet = Mention.first(:status_id => mention.id)
 
