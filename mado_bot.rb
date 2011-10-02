@@ -8,6 +8,8 @@ require 'pit'
 require 'pp'
 require 'twitter'
 
+#DataMapper::Logger.new("/tmp/mado_out", :debug)
+
 class Tweet
   include DataMapper::Resource
 
@@ -73,6 +75,7 @@ class MadoBot
       twit.from_user != 'Hakui_no_Tak' and
       twit.from_user != '000ajiaji000' and
       twit.from_user != 'Moroboshi_Lum' and
+      /windows06/ !~ str and
       /[一二三四五六七八九]窓/ !~ str and
       /ジョハリの窓/ !~ str and
       /[０-９]窓/ !~ str and
@@ -146,8 +149,8 @@ class MadoBot
   end
 
   def settle_relation
-    friend_ids        = self.tw.friend_ids
-    follower_ids      = self.tw.follower_ids
+    friend_ids        = self.tw.friend_ids["ids"]
+    follower_ids      = self.tw.follower_ids["ids"]
     friend_ids_hash   = {}
     follower_ids_hash = {}
     mix_ids      = {}
